@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.venture.android.bbsbasic.DetailFragment"
+    android:background="#ffffff"
+    android:clickable="true">
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignLeft="@+id/btnDel"
+        android:layout_marginLeft="50dp"
+        android:id="@+id/btnNew"
+        android:background="@drawable/ic_fiber_new_black_24dp" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_below="@+id/editMemo"
+        android:id="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_height="150dp"
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        android:scaleType="centerCrop" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:maxLength="27"
+        android:ems="10"
+        android:layout_below="@+id/btnSave"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/editTitle"
+        android:gravity="top"
+        android:hint="Input your Title" />
+
+    <ImageButton
+        android:text="저장"
+        android:id="@+id/btnSave"
+        android:hint="Input your memo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:background="@drawable/ic_save_black_24dp"
+        android:layout_marginRight="10dp" />
+
+    <EditText
+        android:inputType="textMultiLine"
+        android:layout_width="match_parent"
+        android:lines="20"
+        android:ems="10"
+        android:id="@+id/editMemo"
+        android:gravity="top"
+        android:hint="Input your memo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editTitle"
+        android:layout_height="300dp" />
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/imageView"
+        app:srcCompat="@drawable/ic_delete_forever_black_24dp"
+        android:id="@+id/btnDel"
+        android:background="@drawable/ic_delete_black_24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp" />
+
+    <ImageButton
+        android:text="취소"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/btnCancel"
+        android:background="@drawable/ic_cancel_black_24dp"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/btnSave"
+        android:layout_toStartOf="@+id/btnSave" />
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/btnCamera"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/ic_photo_camera_black_24dp" />
+
+
+</RelativeLayout>

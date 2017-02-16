@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 체크박스 해제상태 -->
+    <item android:drawable="@drawable/ic_radio_button_unchecked_black_24dp" android:state_checked="false" />
+    <!-- 체크박스 선택상태 -->
+    <item android:drawable="@drawable/ic_radio_button_checked_black_24dp" android:state_checked="true" />
+    <!-- default state -->
+    <item android:drawable="@drawable/ic_radio_button_checked_black_24dp" /> </selector>
