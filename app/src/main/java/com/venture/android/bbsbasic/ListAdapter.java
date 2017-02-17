@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +19,8 @@ import com.venture.android.bbsbasic.domain.Memo;
 import com.venture.android.bbsbasic.interfaces.ListInterface;
 
 import java.util.List;
+
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
@@ -33,6 +37,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         this.listInterface = (ListInterface) context;
     }
 
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -43,15 +48,24 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         memo = datas.get(position);
+
         holder.txtTitle.setText(memo.getTitle());
         holder.txtContents.setText(memo.getContents());
         holder.txtDate.setText(memo.getDate().toString());
         holder.position = position;
-        holder.checkBox.setChecked(memo.isCheckbox());
-        Glide.with(context)
-                .load(Uri.parse(memo.getUri())) // 1. 로드할 대상 Uri
-                .override(70,50)
-                .into(holder.preView);     // 2. 입력될 이미지뷰
+        //holder.checkBox.setChecked(memo.isCheckbox());
+        if(memo.getUri()!=null) {
+            Glide.with(context)
+                    .load(Uri.parse(memo.getUri())) // 1. 로드할 대상 Uri
+                    .override(70, 50)
+                    .into(holder.preView);     // 2. 입력될 이미지뷰
+        }
+
+        if(memo.getVisible()){
+            holder.checkBox.setVisibility(View.VISIBLE);
+        }else{
+            holder.checkBox.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -69,7 +83,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         int position;
         CardView cardView;
 
-        public ViewHolder(View view) {
+
+        public ViewHolder(final View view) {
             super(view);
             txtTitle    = (TextView) view.findViewById(R.id.txtTitle);
             txtDate     = (TextView) view.findViewById(R.id.txtDate);
@@ -79,7 +94,19 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
             cardView = (CardView) view.findViewById(R.id.cardView);
             cardView.setOnClickListener(clickListener);
-            checkBox.setOnClickListener(clickListener);
+
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    memo.setCheckbox(buttonView.isChecked());
+                    Log.i(TAG,"======= CheckBox =======================");
+                    for(Memo memo:datas){
+                        Log.i(TAG,"= "+memo.getId());
+                        Log.i(TAG,"= "+memo.isCheckbox());
+                    }
+                }
+            });
         }
 
         private View.OnClickListener clickListener = new View.OnClickListener() {
@@ -88,13 +115,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.cardView:
+
                         listInterface.goDetail(position);
-                        break;
-                    case R.id.checkBox:
-                        memo.setCheckbox(true);
                         break;
                 }
             }
         };
     }
+
+
 }

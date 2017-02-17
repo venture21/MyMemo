@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.venture.android.bbsbasic.interfaces.ListInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 
 public class ListFragment extends Fragment implements View.OnClickListener{
@@ -32,7 +35,8 @@ public class ListFragment extends Fragment implements View.OnClickListener{
     ListAdapter listAdapter;
 
     ImageButton btnNew;
-
+    ImageButton btnDel;
+    ImageButton btnMultiSel;
 
 
     public ListFragment() {
@@ -75,8 +79,12 @@ public class ListFragment extends Fragment implements View.OnClickListener{
         recyclerView.setAdapter(listAdapter);
 
         btnNew  = (ImageButton) view.findViewById(R.id.btnNew);
+        btnMultiSel  = (ImageButton) view.findViewById(R.id.btnMultiSel);
+        btnDel = (ImageButton) view.findViewById(R.id.btnDel);
 
         btnNew.setOnClickListener(this);
+        btnMultiSel.setOnClickListener(this);
+        btnDel.setOnClickListener(this);
 
         return view;
     }
@@ -115,7 +123,78 @@ public class ListFragment extends Fragment implements View.OnClickListener{
             case R.id.btnNew:
                 listInterface.goDetail();
                 break;
+            case R.id.btnMultiSel:
+                Log.i(TAG,"========= Press btnMultiDel ==========");
+                btnMultiSel.setVisibility(v.GONE);
+                btnDel.setVisibility(v.VISIBLE);
+
+                for(Memo memo:datas){
+                    memo.setVisible(true);
+                }
+                listAdapter = new ListAdapter(context, datas);
+                recyclerView.setAdapter(listAdapter);
+                listAdapter.notifyDataSetChanged();
+
+//                    for(int i=0;i<datas.size();i++) {
+//                        Log.i(TAG,"= "+i);
+//                        Log.i(TAG,"= "+datas.get(i).isCheckbox());
+//                    }
+                break;
+            case R.id.btnDel:
+                Log.i(TAG,"=========== Press btnDel =============");
+                btnDel.setVisibility(v.GONE);
+                btnMultiSel.setVisibility(v.VISIBLE);
+
+                for(int i=0;i<datas.size();i++){
+                    //Log.i(TAG,"= "+datas.get(i).isCheckbox());
+                    if(datas.get(i).isCheckbox()) {
+//                        try {
+//                            Log.i(TAG,"======== Goto delFromList =============");
+//                            Log.i(TAG,"= "+datas.get(i).getId());
+//                            listInterface.delFromList(datas.get(i).getId());
+//
+//                        } catch (SQLException e) {
+//                            e.printStackTrace();
+//                        }
+                    }
+                }
+
+
+                for(Memo memo:datas){
+                    memo.setVisible(false);
+                }
+                listAdapter = new ListAdapter(context, datas);
+                recyclerView.setAdapter(listAdapter);
+                listAdapter.notifyDataSetChanged();
+                break;
+
+//            case R.id.btnDel:
+//                Log.i(TAG,"=========== Press btnDel =============");
+//                btnDel.setVisibility(v.GONE);
+//                btnMultiSel.setVisibility(v.VISIBLE);
+//
+//                for(int i=0;i<datas.size();i++){
+//                    //Log.i(TAG,"= "+datas.get(i).isCheckbox());
+//                    if(datas.get(i).isCheckbox()) {
+//                        try {
+//                            Log.i(TAG,"======== Goto delFromList =============");
+//                            Log.i(TAG,"= "+datas.get(i).getId());
+//                            listInterface.delFromList(datas.get(i).getId());
+//
+//                        } catch (SQLException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//
+//
+//                for(Memo memo:datas){
+//                    memo.setVisible(false);
+//                }
+//                listAdapter = new ListAdapter(context, datas);
+//                recyclerView.setAdapter(listAdapter);
+//                listAdapter.notifyDataSetChanged();
+//                break;
         }
     }
-
 }

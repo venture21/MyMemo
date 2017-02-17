@@ -34,7 +34,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener{
 
     Context context = null;
     DetailInterface detailInterface = null;
-    int position = -1;
+    //int position = -1;
     //View view = null;
     private View view = null;
 
@@ -74,6 +74,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener{
         Log.i(TAG,"= Id   : "+tmpId);
         Log.i(TAG,"= Title : "+tmpTitle);
         Log.i(TAG,"= Content : "+tmpContents);
+        Log.i(TAG,"= Uri : "+tmpUri);
         Log.i(TAG,"============================================");
         if(tmpId!=0 || tmpTitle !=null || tmpContents!=null ) {
             editMemo.setText(tmpContents);
@@ -197,8 +198,10 @@ public class DetailFragment extends Fragment implements View.OnClickListener{
                     memo.setDate(sdf.format(now));
 
                     // Uri저장
-                    memo.setUri(fileUri.toString());
-                    inputClear();
+                    if(fileUri!=null) {
+                        memo.setUri(fileUri.toString());
+                    }
+
 
                     if(tmpId==0){
                         // 데이터베이스에 저장하고 List Fragment로 돌아간다.
@@ -208,6 +211,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener{
                         memo.setId(tmpId);
                         detailInterface.editToList(memo);
                     }
+                    inputClear();
 
                 } catch (SQLException e) {
                     e.printStackTrace();

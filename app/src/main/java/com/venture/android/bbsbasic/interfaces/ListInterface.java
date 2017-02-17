@@ -1,5 +1,7 @@
 package com.venture.android.bbsbasic.interfaces;
 
+import java.sql.SQLException;
+
 /**
  * Created by pc on 2/14/2017.
  */
@@ -7,5 +9,5 @@ package com.venture.android.bbsbasic.interfaces;
 public interface ListInterface {
     public void goDetail();
     public void goDetail(int position);
-
+    public void delFromList(int position) throws SQLException;
 }

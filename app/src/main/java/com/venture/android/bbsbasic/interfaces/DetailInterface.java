@@ -13,4 +13,5 @@ public interface DetailInterface {
     public void saveToList(Memo memo) throws SQLException;
     public void editToList(Memo memo) throws SQLException;
     public void delToList(Memo memo) throws SQLException;
+
 }

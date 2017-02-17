@@ -25,7 +25,8 @@ public class Memo {
     @DatabaseField
     String uri;
 
-    boolean checkbox;
+    boolean visible  = false;
+    boolean checkbox = false;
 
 
     public Memo(){
@@ -102,6 +103,14 @@ public class Memo {
         this.uri = uri;
     }
 
+    public boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
     public boolean isCheckbox() {
         return checkbox;
     }
@@ -109,4 +118,6 @@ public class Memo {
     public void setCheckbox(boolean checkbox) {
         this.checkbox = checkbox;
     }
+
+
 }

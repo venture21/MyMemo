@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements ListInterface, De
     @Override
     public void saveToList(Memo memo) throws SQLException {
         Log.i(TAG,"================ saveToList ================");
+        Log.i(TAG,"= Id      : "+memo.getId());
         Log.i(TAG,"= Title   : "+memo.getTitle());
         Log.i(TAG,"= Content : "+memo.getContents());
         Log.i(TAG,"= fileUri : "+memo.getUri());
@@ -240,6 +241,28 @@ public class MainActivity extends AppCompatActivity implements ListInterface, De
         list.refreshAdapter();
     }
 
+    @Override
+    public void delFromList(int position) throws SQLException {
+        Log.i(TAG,"================ delToList- ================");
+        Log.i(TAG,"= Title   : "+datas.get(position).getTitle());
+        Log.i(TAG,"= Content : "+datas.get(position).getContents());
+        Log.i(TAG,"= fileUri : "+datas.get(position).getUri());
+        Log.i(TAG,"============================================");
 
+
+        dbHelper = new DBHelper(this);
+        memoDao = dbHelper.getDao(Memo.class);
+        memoDao.deleteById(memo.getId());
+
+        // 메모를 새롭게 불러옴 (queryForAll)
+        datas = memoDao.queryForAll();
+        dbHelper.close();
+
+        // Fragment내의 List값 update
+        list.setData(datas);
+        // 저장 후 메인 화면으로 복귀한다.
+        //super.onBackPressed();
+        list.refreshAdapter();
+    }
 
 }
