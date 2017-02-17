@@ -37,7 +37,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         this.listInterface = (ListInterface) context;
     }
 
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -83,7 +82,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         int position;
         CardView cardView;
 
-
         public ViewHolder(final View view) {
             super(view);
             txtTitle    = (TextView) view.findViewById(R.id.txtTitle);
@@ -99,7 +97,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    // memo의 position값을 설정한 뒤에 액세스 한다.
+                    memo = datas.get(position);
                     memo.setCheckbox(buttonView.isChecked());
+                    datas.get(position).setCheckbox(buttonView.isChecked());
                     Log.i(TAG,"======= CheckBox =======================");
                     for(Memo memo:datas){
                         Log.i(TAG,"= "+memo.getId());
@@ -122,6 +123,4 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             }
         };
     }
-
-
 }

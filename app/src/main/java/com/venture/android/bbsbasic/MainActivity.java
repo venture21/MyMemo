@@ -242,17 +242,20 @@ public class MainActivity extends AppCompatActivity implements ListInterface, De
     }
 
     @Override
-    public void delFromList(int position) throws SQLException {
-        Log.i(TAG,"================ delToList- ================");
-        Log.i(TAG,"= Title   : "+datas.get(position).getTitle());
-        Log.i(TAG,"= Content : "+datas.get(position).getContents());
-        Log.i(TAG,"= fileUri : "+datas.get(position).getUri());
-        Log.i(TAG,"============================================");
-
-
+    public void delFromList(Memo memo) throws SQLException {
+        //memo = datas.get(position);
         dbHelper = new DBHelper(this);
         memoDao = dbHelper.getDao(Memo.class);
-        memoDao.deleteById(memo.getId());
+        for(Memo memo1 : datas){
+            if(memo1.isCheckbox()){
+                Log.i(TAG,"================ delFromList- ================");
+                Log.i(TAG,"= Title   : "+memo1.getTitle());
+                Log.i(TAG,"= Content : "+memo1.getContents());
+                Log.i(TAG,"= fileUri : "+memo1.getUri());
+                Log.i(TAG,"============================================");
+                memoDao.deleteById(memo1.getId());
+            }
+        }
 
         // 메모를 새롭게 불러옴 (queryForAll)
         datas = memoDao.queryForAll();

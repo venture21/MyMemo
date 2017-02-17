@@ -201,7 +201,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener{
                     if(fileUri!=null) {
                         memo.setUri(fileUri.toString());
                     }
-
+                    inputClear();
 
                     if(tmpId==0){
                         // 데이터베이스에 저장하고 List Fragment로 돌아간다.
@@ -211,7 +211,7 @@ public class DetailFragment extends Fragment implements View.OnClickListener{
                         memo.setId(tmpId);
                         detailInterface.editToList(memo);
                     }
-                    inputClear();
+
 
                 } catch (SQLException e) {
                     e.printStackTrace();

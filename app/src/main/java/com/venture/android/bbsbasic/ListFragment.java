@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import com.venture.android.bbsbasic.domain.Memo;
 import com.venture.android.bbsbasic.interfaces.ListInterface;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -146,19 +147,17 @@ public class ListFragment extends Fragment implements View.OnClickListener{
                 btnMultiSel.setVisibility(v.VISIBLE);
 
                 for(int i=0;i<datas.size();i++){
-                    //Log.i(TAG,"= "+datas.get(i).isCheckbox());
                     if(datas.get(i).isCheckbox()) {
-//                        try {
-//                            Log.i(TAG,"======== Goto delFromList =============");
-//                            Log.i(TAG,"= "+datas.get(i).getId());
-//                            listInterface.delFromList(datas.get(i).getId());
-//
-//                        } catch (SQLException e) {
-//                            e.printStackTrace();
-//                        }
+                        try {
+                            Log.i(TAG,"======== Goto delFromList =============");
+                            Log.i(TAG,"= "+datas.get(i).getId());
+                            listInterface.delFromList(datas.get(i));
+
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-
 
                 for(Memo memo:datas){
                     memo.setVisible(false);
@@ -168,33 +167,6 @@ public class ListFragment extends Fragment implements View.OnClickListener{
                 listAdapter.notifyDataSetChanged();
                 break;
 
-//            case R.id.btnDel:
-//                Log.i(TAG,"=========== Press btnDel =============");
-//                btnDel.setVisibility(v.GONE);
-//                btnMultiSel.setVisibility(v.VISIBLE);
-//
-//                for(int i=0;i<datas.size();i++){
-//                    //Log.i(TAG,"= "+datas.get(i).isCheckbox());
-//                    if(datas.get(i).isCheckbox()) {
-//                        try {
-//                            Log.i(TAG,"======== Goto delFromList =============");
-//                            Log.i(TAG,"= "+datas.get(i).getId());
-//                            listInterface.delFromList(datas.get(i).getId());
-//
-//                        } catch (SQLException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//
-//
-//                for(Memo memo:datas){
-//                    memo.setVisible(false);
-//                }
-//                listAdapter = new ListAdapter(context, datas);
-//                recyclerView.setAdapter(listAdapter);
-//                listAdapter.notifyDataSetChanged();
-//                break;
         }
     }
 }

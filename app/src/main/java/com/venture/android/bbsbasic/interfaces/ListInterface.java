@@ -1,5 +1,7 @@
 package com.venture.android.bbsbasic.interfaces;
 
+import com.venture.android.bbsbasic.domain.Memo;
+
 import java.sql.SQLException;
 
 /**
@@ -9,5 +11,5 @@ import java.sql.SQLException;
 public interface ListInterface {
     public void goDetail();
     public void goDetail(int position);
-    public void delFromList(int position) throws SQLException;
+    public void delFromList(Memo position) throws SQLException;
 }
